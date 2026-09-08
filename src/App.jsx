@@ -9,6 +9,7 @@ import useStore from "./store";
 import { setAuthToken } from "./libs/apiCall";
 import { Toaster } from "sonner";
 import Navbar from "./components/Navbar";
+import { useEffect } from "react";
 
 const RootLayout = () => {
   const { user } = useStore((state) => state);
@@ -19,7 +20,7 @@ const RootLayout = () => {
   ) : (
     <>
       <Navbar />
-      <div className="min-h-[cal(h-screen - 100px)]">
+      <div className="min-h-[calc(h-screen - 100px)]">
         <Outlet />
       </div>
     </>
@@ -27,9 +28,18 @@ const RootLayout = () => {
 };
 
 const App = () => {
+  const { theme } = useStore((state) => state);
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [theme]);
   return (
     <main>
-      <div className="w-full min-h-screen px-6 bg-gray-100 md:px-20 dark:bg-slate-500">
+      <div className="w-full min-h-screen px-6 bg-gray-100 md:px-20 dark:bg-slate-900">
         <Routes>
           <Route element={<RootLayout />}>
             <Route path="/" element={<Navigate to="/overview" replace />} />
@@ -43,6 +53,7 @@ const App = () => {
           <Route path="/sign-up" element={<SignUp />} />
         </Routes>
       </div>
+
       <Toaster richColors position="top-center" />
     </main>
   );
