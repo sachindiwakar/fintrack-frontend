@@ -26,11 +26,9 @@ const LoginSchema = z.object({
   email: z.email({
     error: "Invalid email address",
   }),
-  password: z
-    .string({
-      error: "Password is required",
-    })
-    .min(6, "Password must be at least 6 characters"),
+  password: z.string({
+    error: "Password is required",
+  }),
 });
 
 const SignIn = () => {
