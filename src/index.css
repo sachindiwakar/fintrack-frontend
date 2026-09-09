@@ -60,3 +60,11 @@
   --input: 214.3 31.8% 91.4%;
   --ring: 221.2 83.2% 53.3%;
 }
+
+.inputStyles {
+  @apply bg-transparent appearance-none border border-gray-300 dark:border-gray-800 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-500 outline-none focus:ring-1 focus:ring-blue-500 dark:placeholder:text-gray-700;
+}
+
+.inputLabels {
+  @apply block text-gray-700 dark:text-gray-400 text-sm md:text-base mb-2;
+}
