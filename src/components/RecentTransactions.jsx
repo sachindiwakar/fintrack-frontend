@@ -3,7 +3,7 @@ import { RiProgress3Line } from "react-icons/ri";
 import { TiWarning } from "react-icons/ti";
 import { Link } from "react-router";
 
-import { formatCurrency } from "../libs/currency";
+import { formatCurrency } from "../libs";
 import Title from "./Title";
 
 const RecentTransactions = ({ data }) => {

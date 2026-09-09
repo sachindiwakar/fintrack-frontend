@@ -40,30 +40,45 @@ export const getDateSevenDaysAgo = () => {
 
 export async function fetchCountries() {
   try {
-    const response = await fetch("https://restcountries.com/v3.1/all");
-    const data = await response.json();
+    let allCountries = [];
+    let offset = 0;
+    const limit = 100;
 
-    if (response.ok) {
-      const countries = data.map((country) => {
-        const currencies = country.currencies || {};
-        const currencyCode = Object.keys(currencies)[0];
+    while (true) {
+      const response = await fetch(
+        `https://api.restcountries.com/countries/v5?limit=${limit}&offset=${offset}`,
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_COUNTRIES_API_KEY}`,
+          },
+        },
+      );
 
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error(data);
+        return [];
+      }
+
+      const countries = data.data.objects.map((country) => {
         return {
-          country: country.name?.common || "",
-          flag: country.flags?.png || "",
-          currency: currencyCode || "",
+          country: country.names?.common || "",
+          flag: country.flag?.url_png || "",
+          currency: country.currencies?.[0]?.code || "",
         };
       });
 
-      const sortedCountries = countries.sort((a, b) =>
-        a.country.localeCompare(b.country),
-      );
+      allCountries = [...allCountries, ...countries];
 
-      return sortedCountries;
-    } else {
-      console.error(`Error: ${data.message}`);
-      return [];
+      if (countries.length < limit) {
+        break;
+      }
+
+      offset += limit;
     }
+
+    return allCountries.sort((a, b) => a.country.localeCompare(b.country));
   } catch (error) {
     console.error("An error occurred while fetching data:", error);
     return [];

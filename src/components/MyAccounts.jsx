@@ -3,7 +3,7 @@ import { GiCash } from "react-icons/gi";
 import { RiVisaLine } from "react-icons/ri";
 import { Link } from "react-router";
 
-import { formatCurrency, maskAccountNumber } from "../libs/currency";
+import { formatCurrency, maskAccountNumber } from "../libs";
 import Title from "./Title";
 
 const ICONS = {

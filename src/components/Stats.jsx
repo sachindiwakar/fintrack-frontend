@@ -1,7 +1,7 @@
 import { BsCashCoin, BsCurrencyDollar } from "react-icons/bs";
 import { SiCashapp } from "react-icons/si";
 
-import { formatCurrency } from "../libs/currency";
+import { formatCurrency } from "../libs";
 import { Card } from "./Card";
 
 const ICON_STYLES = [
